@@ -38,6 +38,10 @@ public class Task {
         mIsDone = done;
     }
 
+    public void setId(long id) {
+        mId = id;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
