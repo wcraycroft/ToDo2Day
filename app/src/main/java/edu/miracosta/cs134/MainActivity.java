@@ -62,16 +62,19 @@ public class MainActivity extends AppCompatActivity {
 
                 // Send new checked status to Model
                 // Get a writable reference to db
-                SQLiteDatabase db = mDb.getWritableDatabase();
+                //SQLiteDatabase db = mDb.getWritableDatabase();
                 // Get task that has just been clicked
                 Task updatedTask = mAllTasks.get(position);
 
-                mDb.updateTask(db, updatedTask);
-
+                // TODO: fix this part
                 // Update Model
-                mAllTasks = mDb.getAllTasks(db);
+                mAllTasks.get(position).setDone(!updatedTask.isDone());
 
-                db.close();
+                mDb.updateTask(updatedTask);
+
+
+
+                //db.close();
 
                 // Notify ListAdapter that it has changed
                 mTaskListAdapter.notifyDataSetChanged();
@@ -90,13 +93,12 @@ public class MainActivity extends AppCompatActivity {
         mDb.addTask(db, newTask);
 
         // Update Model
-        mAllTasks = mDb.getAllTasks(db);
+        mAllTasks.add(newTask);
         db.close();
 
-        mTaskListAdapter.updateTaskList(mAllTasks);
 
-        // Notify ListAdapter that it has changed     (this was not updating mAllTasks List
-        //mTaskListAdapter.notifyDataSetChanged();     in the TaskListAdapter automatically...)
+        // Notify ListAdapter that it has changed
+        mTaskListAdapter.notifyDataSetChanged();
     }
 
     public void clearTask(View v) {
@@ -106,11 +108,11 @@ public class MainActivity extends AppCompatActivity {
         mDb.clearAllTasks(db);
 
         // Update Model
-        mAllTasks = mDb.getAllTasks(db);
+        mAllTasks.clear();
         db.close();
 
         // Notify ListAdapter that it has changed
-        mTaskListAdapter.updateTaskList(mAllTasks);
+        mTaskListAdapter.notifyDataSetChanged();
     }
 
     @Override

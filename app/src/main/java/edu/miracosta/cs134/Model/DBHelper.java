@@ -73,12 +73,13 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // Method to update an existing task in database
-    public void updateTask(SQLiteDatabase db, Task task) {
-
+    public void updateTask(Task task) {
+        SQLiteDatabase db = getWritableDatabase();
         // TODO: check if isDone is being saved correctly
         ContentValues values = new ContentValues();
         values.put(FIELD_IS_DONE, task.isDone() ? 1 : 0);
-        db.update(DATABASE_TABLE, values, "_id= ?", new String[] {Long.toString(task.getId())});
+        db.update(DATABASE_TABLE, values, "_id= ?", new String[] {String.valueOf(task.getId())});
+        db.close();
     }
 
     // Method to get all tasks from existing database

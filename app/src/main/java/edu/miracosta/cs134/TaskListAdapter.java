@@ -49,11 +49,11 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
         return view;
     }
 
-    // Helper method that clears current list and is passed a new one.
+    /* Helper method that clears current list and is passed a new one.
     // This fixed notifyDataSetChanged() pointing to the old list.
     public void updateTaskList(List<Task> newList) {
         mAllTasks.clear();
         mAllTasks.addAll(newList);
         this.notifyDataSetChanged();
-    }
+    } */
 }
