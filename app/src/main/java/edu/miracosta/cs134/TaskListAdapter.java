@@ -19,7 +19,7 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
     private int mResourceId;
     private List<Task> mAllTasks;
 
-    public TaskListAdapter(@NonNull Context context, int resource, @NonNull List<Task> objects) {
+    public TaskListAdapter(Context context, int resource, List<Task> objects) {
         super(context, resource, objects);
         // Initialize instance variables
         mContext = context;
@@ -31,7 +31,7 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
     // Ctrl + o to override
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         //return super.getView(position, convertView, parent);
 
         // For each task in the list, inflate its view
@@ -47,5 +47,13 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
         isDoneCB.setText(focusedTask.getDescription());
 
         return view;
+    }
+
+    // Helper method that clears current list and is passed a new one.
+    // This fixed notifyDataSetChanged() pointing to the old list.
+    public void updateTaskList(List<Task> newList) {
+        mAllTasks.clear();
+        mAllTasks.addAll(newList);
+        this.notifyDataSetChanged();
     }
 }
