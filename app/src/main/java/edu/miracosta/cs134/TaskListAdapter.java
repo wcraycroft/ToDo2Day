@@ -3,9 +3,11 @@ package edu.miracosta.cs134;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 
@@ -46,14 +48,9 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
         isDoneCB.setChecked(focusedTask.isDone());
         isDoneCB.setText(focusedTask.getDescription());
 
+        // Set position tag to be used in onClick
+        isDoneCB.setTag(position);
+
         return view;
     }
-
-    /* Helper method that clears current list and is passed a new one.
-    // This fixed notifyDataSetChanged() pointing to the old list.
-    public void updateTaskList(List<Task> newList) {
-        mAllTasks.clear();
-        mAllTasks.addAll(newList);
-        this.notifyDataSetChanged();
-    } */
 }
